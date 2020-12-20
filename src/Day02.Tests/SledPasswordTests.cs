@@ -2,26 +2,26 @@
 
 namespace Day02.Tests
 {
-    public class PasswordTests
+    public class SledPasswordTests
     {
         [Fact]
         public void ReturnsFalseAsDefault()
         {
-            var password = new Password("X");
+            var password = new SledPassword("X");
             Assert.False(password.IsValid());
         }
 
         [Fact]
         public void ReturnFalseIfPasswordIsNull()
         {
-            var password = new Password(": X");
+            var password = new SledPassword(": X");
             Assert.False(password.IsValid());
         }
 
         [Fact]
         public void ReturnFalseIfPolicyIsNull()
         {
-            var password = new Password("X: ");
+            var password = new SledPassword("X: ");
             Assert.False(password.IsValid());
         }
 
@@ -30,7 +30,7 @@ namespace Day02.Tests
         [InlineData("1-3 b: abcde")]
         public void ReturnsTrueIfPasswordMeetsPolicy(string record)
         {
-            var password = new Password(record);
+            var password = new SledPassword(record);
             Assert.True(password.IsValid());
         }
 
@@ -42,7 +42,7 @@ namespace Day02.Tests
         [InlineData("2-3 b: abbbbcde")]
         public void ReturnsFalseIfPasswordDoesNotMeetPolicy(string record)
         {
-            var password = new Password(record);
+            var password = new SledPassword(record);
             Assert.False(password.IsValid());
         }
     }

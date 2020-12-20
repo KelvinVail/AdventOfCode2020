@@ -1,32 +1,27 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 
 namespace Day02
 {
-    public class Password
+    public abstract class PasswordBase
     {
-        private readonly string _password;
-        private readonly char _requiredCharacter;
-        private readonly int _minOccurrences;
-        private readonly int _maxOccurrences;
-
-        public Password(string record)
+        protected PasswordBase(string record)
         {
-            _password = GetPassword(record);
-            _requiredCharacter = RequiredCharacter(record);
-            _minOccurrences = MinOccurrences(record);
-            _maxOccurrences = MaxOccurrences(record);
+            Password = GetPassword(record);
+            RequiredCharacter = GetRequiredCharacter(record);
+            FirstNumber = GetFirstNumber(record);
+            SecondNumber = GetSecondNumber(record);
         }
 
-        public bool IsValid()
-        {
-            if (_password is null) return false;
+        protected string Password { get; }
 
-            var occurrences = _password.Count(c => c == _requiredCharacter);
+        protected char RequiredCharacter { get; }
 
-            return occurrences >= _minOccurrences && occurrences <= _maxOccurrences;
-        }
+        protected int FirstNumber { get; }
+
+        protected int SecondNumber { get; }
+
+        public abstract bool IsValid();
 
         private static string GetPassword(string record)
         {
@@ -34,13 +29,13 @@ namespace Day02
             return record.Split(": ")[1];
         }
 
-        private static char RequiredCharacter(string record)
+        private static char GetRequiredCharacter(string record)
         {
             if (!RecordIsValid(record)) return char.Parse("|");
             return char.Parse(Policy(record).Split(" ")[1]);
         }
 
-        private static int MinOccurrences(string record)
+        private static int GetFirstNumber(string record)
         {
             if (!RecordIsValid(record)) return -1;
             return int.Parse(
@@ -49,7 +44,7 @@ namespace Day02
                 CultureInfo.CurrentCulture);
         }
 
-        private static int MaxOccurrences(string record)
+        private static int GetSecondNumber(string record)
         {
             if (!RecordIsValid(record)) return -1;
             return int.Parse(
