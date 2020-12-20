@@ -15,7 +15,7 @@ namespace Main
             var expenseReport = new ExpenseReport();
             expenseReport.SetExpenses(expenses);
 
-            Console.WriteLine(expenseReport.Fix());
+            Console.WriteLine(expenseReport.Fix(3));
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();

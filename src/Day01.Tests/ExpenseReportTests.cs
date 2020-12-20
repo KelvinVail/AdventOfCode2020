@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Day01.Tests
 {
-    public class Day01Tests
+    public class ExpenseReportTests
     {
         private readonly ExpenseReport _expenseReport = new ExpenseReport();
 
@@ -52,6 +52,24 @@ namespace Day01.Tests
             _expenseReport.SetExpenses(expenses);
 
             var result = _expenseReport.Fix();
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(979, 366, 675, 10, 241861950)]
+        [InlineData(979, 365, 10, 676, 979 * 365 * 676)]
+        public void FixReturnsProductOfAnyThreeNumbersThatAddUpTo2020(
+            int one,
+            int two,
+            int three,
+            int four,
+            int expected)
+        {
+            var expenses = new List<int> { one, two, three, four };
+            _expenseReport.SetExpenses(expenses);
+
+            var result = _expenseReport.Fix(3);
 
             Assert.Equal(expected, result);
         }
