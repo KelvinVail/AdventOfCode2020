@@ -54,9 +54,7 @@ namespace Day01
 
         private static int CalculateError(IList<int> expenses, int target)
         {
-            if (expenses.Sum() == target)
-                return expenses.Aggregate((x, y) => x * y);
-            return 0;
+            return expenses.Sum() == target ? expenses.Aggregate((x, y) => x * y) : 0;
         }
     }
 }
